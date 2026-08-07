@@ -1,6 +1,4 @@
 class Solution {
-
-    // smallest zero-free number of length at least "length" divisible by "required"
     private String freeSlotsFiller(long required, int length) {
         StringBuilder str = new StringBuilder();
 
@@ -11,7 +9,7 @@ class Solution {
             }
         }
 
-        while (str.length() < length) {   // pad with 1s
+        while (str.length() < length) {  
             str.append('1');
         }
 
@@ -22,7 +20,6 @@ class Solution {
     public String smallestNumber(String num, long t) {
         int n = num.length();
 
-        // Check primes 2,3,5,7
         long temp = t;
         for (int primeFact : new int[]{2, 3, 5, 7}) {
             while (temp % primeFact == 0) {
@@ -30,14 +27,11 @@ class Solution {
             }
         }
 
-        if (temp != 1) {   // it means there are other primes apart from 2, 3, 5, 7
+        if (temp != 1) {
             return "-1";
         }
-
-        // Precompute remainingFactor[i] = if we take i digits of num in my result, what factor remaining for t
         long[] remainingFactor = new long[n + 1];
         remainingFactor[0] = t;
-        // "123045"
         for (int i = 0; i < n; i++) {
             int digit = num.charAt(i) - '0';
 
@@ -48,7 +42,7 @@ class Solution {
             remainingFactor[i + 1] = remainingFactor[i] / gcd(remainingFactor[i], digit);
         }
 
-        if (remainingFactor[n] == 1) {   // the input itself is sufficient for t
+        if (remainingFactor[n] == 1) {  
             return num;
         }
 
@@ -60,7 +54,7 @@ class Solution {
 
         for (int i = zeroIdx; i >= 0; i--) {
             long required = remainingFactor[i];
-            int freeSlots = n - 1 - i;   // free slots to the right of i
+            int freeSlots = n - 1 - i;  
 
             for (int digit = (num.charAt(i) - '0') + 1; digit <= 9; digit++) {
                 long furtherRequired = required / gcd(required, digit);
@@ -72,10 +66,9 @@ class Solution {
             }
         }
 
-        return freeSlotsFiller(t, n + 1);   // num = "11", t = 2^15
+        return freeSlotsFiller(t, n + 1); 
     }
 
-    // greatest common divisor
     private long gcd(long a, long b) {
         return b == 0 ? a : gcd(b, a % b);
     }
