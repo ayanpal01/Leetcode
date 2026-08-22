@@ -12,8 +12,6 @@ public:
             temp/=10;
         }
 
-        int sum = digitProduct+digitSum;
-        if(n%sum == 0) return true;
-        return false;
+        return n%(digitProduct+digitSum) == 0;
     }
 };
