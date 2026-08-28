@@ -4,19 +4,12 @@ private:
     char midChar = '$';
     string result;
 
-    bool solve(string& curr, vector<int>& count, string& target,
-               int i, bool greater) {
-
-        // Left half is complete
+    bool solve(string& curr, vector<int>& count, string& target, int i, bool greater) {
         if (i == half) {
             string candidate = curr;
+            if (midChar != '$') candidate += midChar;
 
-            // Add middle character for odd length
-            if (midChar != '$') {
-                candidate += midChar;
-            }
 
-            // Add reversed left half
             string rightHalf = curr;
             reverse(rightHalf.begin(), rightHalf.end());
             candidate += rightHalf;
@@ -25,28 +18,20 @@ private:
                 result = candidate;
                 return true;
             }
-
             return false;
         }
 
-        // Try characters in lexicographical order
         for (char ch = 'a'; ch <= 'z'; ch++) {
-
             int idx = ch - 'a';
 
             if (count[idx] < 2) continue;
-
-            // If prefix is equal, we cannot choose a smaller character
             if (!greater && ch < target[i]) continue;
 
             curr.push_back(ch);
             count[idx] -= 2;
 
             bool isGreater = greater || (ch > target[i]);
-
-            if (solve(curr, count, target, i + 1, isGreater)) {
-                return true;
-            }
+            if (solve(curr, count, target, i + 1, isGreater)) return true;
 
             curr.pop_back();
             count[idx] += 2;
@@ -70,11 +55,8 @@ public:
         }
 
         if (oddCount > 1) return "";
-
         half = n / 2;
-
         string curr = "";
-
         solve(curr, count, target, 0, false);
 
         return result;
