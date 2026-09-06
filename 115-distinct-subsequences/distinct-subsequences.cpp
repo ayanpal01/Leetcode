@@ -5,21 +5,19 @@ public:
         if (m < n) {
             return 0;
         }
-        vector<vector<unsigned long long>> dp(m + 1, vector<unsigned long long>(n + 1));
-        for (int i = 0; i <= m; i++) {
-            dp[i][n] = 1;
-        }
+        vector<unsigned long long> dp(n + 1);
+        dp[n] = 1;
+        
         for (int i = m - 1; i >= 0; i--) {
             char sChar = s.at(i);
-            for (int j = n - 1; j >= 0; j--) {
+            for (int j = 0; j < n; j++) {
                 char tChar = t.at(j);
                 if (sChar == tChar) {
-                    dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];
-                } else {
-                    dp[i][j] = dp[i + 1][j];
+                    dp[j] = dp[j + 1] + dp[j];
                 }
             }
         }
-        return dp[0][0];
+        
+        return dp[0];
     }
 };
