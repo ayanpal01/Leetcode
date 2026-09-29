@@ -25,7 +25,6 @@ public:
 
             int8_t& cached = memo[row][col][balance];
             if (cached != -1) return cached == 1;
-
             bool possible =
                 (row + 1 < m && dfs(row + 1, col, balance)) ||
                 (col + 1 < n && dfs(row, col + 1, balance));
