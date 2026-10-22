@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int n=11;
+    int n=0;
     inline int findSteps(vector<int>& nums, bool isInc=1){
         int s=isInc?1:n-2, e=isInc?n:-1, d=(isInc<<1)-1, i, j;
         for( i=s; i!=e; i+=d){
