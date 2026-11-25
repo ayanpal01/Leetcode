@@ -13,7 +13,6 @@ public:
             }
             idxS++;
             idxT++;
-            // if(idxT>=nT && idxS!=nS) return false;
         }
         if(idxS==nS) return true;
         return false;
